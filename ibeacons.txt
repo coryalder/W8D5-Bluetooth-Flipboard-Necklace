@@ -1,0 +1,38 @@
+To broadcast as a beacon:
+
+Create a CLBeaconRegion (w minor and major) - 15F73C06-7F62-4DEC-9979-2D26A74B0668
+Create a CBPeripheralManager
+
+in viewDidLoad
+	- set yourself as the peripheralManager's delegate
+	
+implement protocol, and didUpdateState method
+
+if poweredOff, stop advertising
+if poweredOn, start advertising
+
+use your beacon region's peripheralDataWithMeasuredPower(0) as [NSObject : AnyObject] to advertise
+
+-------------
+
+To detect nearby beacons:
+
+create a location maanger
+create a beacon region (use same UUID)
+create a statusLabel (link to storyboard)
+
+in viewDidLoad
+
+	- set yourself as the location manager's deegate
+	- requestWhenInUseAuthorization (set info key NSLocationWhenInUseUsageDescription)
+	- start monitoring for region // start ranging beacons
+	
+when we enter a region
+	start ranging beacons using our region
+
+when we leave a region
+	stop ranging beacons using our region
+
+when we range beacons
+	unwrap first beacon as CLBeacon
+	switch on proximity, display on screen
